@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1",
+    "navn": "Mette",
+    "adresse": "Nørrebrogade 42, 2200 København N",
+    "pantA": 20,
+    "pantB": 10,
+    "pantC": 4,
+    "status": "Ledig",
+    "note": "Står i en blå kasse ved hoveddøren",
+    "ejer": false
+  },
+  {
+    "id": "2",
+    "navn": "Jonas",
+    "adresse": "Gothersgade 11, 1123 København K",
+    "pantA": 30,
+    "pantB": 20,
+    "pantC": 8,
+    "status": "Ledig",
+    "note": "Ring på 3. sal, jeg sender posen ned",
+    "ejer": false
+  },
+  {
+    "id": "3",
+    "navn": "Sofie",
+    "adresse": "Åboulevard 7, 1635 København V",
+    "pantA": 22,
+    "pantB": 0,
+    "pantC": 0,
+    "status": "Reserveret",
+    "note": "Kun dåser, ligger i en sort sæk",
+    "ejer": false
+  },
+  {
+    "id": "4",
+    "navn": "Vincent",
+    "adresse": "Vesterbrogade 88, 1620 København V",
+    "pantA": 16,
+    "pantB": 20,
+    "pantC": 10,
+    "status": "Afhentet",
+    "note": "Mit eget opslag - blev hentet af Anna",
+    "ejer": true
+  },
+  {
+    "id": "5",
+    "navn": "Ahmad",
+    "adresse": "Amagerbrogade 120, 2300 København S",
+    "pantA": 40,
+    "pantB": 25,
+    "pantC": 6,
+    "status": "Ledig",
+    "note": "To fyldte poser, tunge! Tag evt. en cykel",
+    "ejer": false
+  },
+  {
+    "id": "6",
+    "navn": "Vincent",
+    "adresse": "Vesterbrogade 88, 1620 København V",
+    "pantA": 8,
+    "pantB": 6,
+    "pantC": 4,
+    "status": "Ledig",
+    "note": "Mit eget opslag - flasker fra fredagsbar",
+    "ejer": true
+  }
+]
