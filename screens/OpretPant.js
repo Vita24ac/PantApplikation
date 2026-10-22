@@ -2,6 +2,7 @@
 import React, { useState, useContext } from "react";
 import { View, Text, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Location from "expo-location";
 import KnapKomponent from "../components/KnapKomponent";
 import { GlobalStyle as GS } from "../styles/GlobalStyle";
 import { PantContext } from "../data/PantContext";
@@ -33,7 +34,22 @@ export default function OpretPant({ navigation }) {
   const ændrTekst = (nøgle, værdi) =>
     setNytOpslag((forrige) => ({ ...forrige, [nøgle]: værdi }));
 
-  const gem = () => {
+  // Hent telefonens placering, så opslaget kan findes på "I nærheden"-skærmen
+  const hentKoordinater = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") return {};
+      const position = await Location.getCurrentPositionAsync({});
+      return {
+        breddegrad: position.coords.latitude,
+        længdegrad: position.coords.longitude,
+      };
+    } catch (e) {
+      return {}; // uden koordinater vises opslaget bare kun i den almindelige liste
+    }
+  };
+
+  const gem = async () => {
     const antal = beregnAntal(nytOpslag);
 
     // Simpel validering på formular indhold
@@ -44,10 +60,13 @@ export default function OpretPant({ navigation }) {
       return visBesked("Skriv hvor meget pant du har", "Udfyld mindst én af de tre typer.");
     }
 
-    tilfoejPant({
-      id: String(Date.now()), // unikt ID
+    const koordinater = await hentKoordinater();
+
+    // Opslaget gemmes i Firestore, så det stadig er der næste gang app'en åbnes
+    await tilfoejPant({
       navn: BRUGER.navn,
       adresse: nytOpslag.adresse.trim(),
+      ...koordinater,
       pantA: Number(nytOpslag.pantA) || 0,
       pantB: Number(nytOpslag.pantB) || 0,
       pantC: Number(nytOpslag.pantC) || 0,
@@ -66,7 +85,8 @@ export default function OpretPant({ navigation }) {
       <ScrollView contentContainerStyle={GS.skærmIndhold}>
         <Text style={GS.overskrift}>Stil din pant ud</Text>
         <Text style={[GS.underoverskrift, { marginBottom: 16 }]}>
-          En bruger henter posen og afleverer den - I deler beløbet 50/50
+          En bruger henter posen og afleverer den - I deler beløbet 50/50.
+          Vi bruger din placering, så naboer kan se opslaget i nærheden af sig.
         </Text>
 
         <View style={GS.felt}>

@@ -47,3 +47,35 @@ export const visKroner = (beløb) => {
   const tekst = Number.isInteger(tal) ? String(tal) : tal.toFixed(2).replace(".", ",");
   return `${tekst} kr.`;
 };
+
+// Hvor langt væk et opslag højst må være, før vi kalder det "i nærheden"
+export const MAKS_AFSTAND_KM = 5;
+
+// Afstanden i km mellem to punkter på jorden (haversine-formlen).
+// Vi bruger den til at finde de pantposer, der ligger tættest på brugeren.
+export const beregnAfstand = (minPosition, opslag) => {
+  if (!minPosition || opslag?.breddegrad == null || opslag?.længdegrad == null) {
+    return null; // vi mangler enten brugerens eller opslagets placering
+  }
+
+  const jordensRadius = 6371; // km
+  const tilRadianer = (grader) => (grader * Math.PI) / 180;
+
+  const forskelBredde = tilRadianer(opslag.breddegrad - minPosition.breddegrad);
+  const forskelLængde = tilRadianer(opslag.længdegrad - minPosition.længdegrad);
+
+  const a =
+    Math.sin(forskelBredde / 2) ** 2 +
+    Math.cos(tilRadianer(minPosition.breddegrad)) *
+      Math.cos(tilRadianer(opslag.breddegrad)) *
+      Math.sin(forskelLængde / 2) ** 2;
+
+  return jordensRadius * 2 * Math.asin(Math.sqrt(a));
+};
+
+// Afstanden skrevet pænt op, fx "450 m" eller "2,3 km"
+export const visAfstand = (km) => {
+  if (km == null) return "Ukendt afstand";
+  if (km < 1) return `${Math.round(km * 1000)} m væk`;
+  return `${km.toFixed(1).replace(".", ",")} km væk`;
+};

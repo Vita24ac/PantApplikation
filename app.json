@@ -21,7 +21,13 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "PantMakker bruger din placering til at vise pantposer i nærheden af dig."
+        }
+      ]
     ]
   }
 }

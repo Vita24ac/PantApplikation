@@ -6,7 +6,7 @@ import StatusBadge from "./StatusBadge";
 import { GlobalStyle as GS, Farver } from "../styles/GlobalStyle";
 import { beregnAntal, beregnBeloeb, beregnSplit, visKroner } from "../data/const";
 
-export default function PantKort({ opslag, onPress }) {
+export default function PantKort({ opslag, onPress, afstand }) {
   return (
     <TouchableOpacity style={GS.kort} onPress={onPress}>
       <View style={GS.række}>
@@ -22,6 +22,11 @@ export default function PantKort({ opslag, onPress }) {
           {opslag.adresse}
         </Text>
       </View>
+
+      {/* Afstanden vises kun på "I nærheden"-skærmen, hvor vi kender brugerens placering */}
+      {afstand ? (
+        <Text style={[GS.svag, { marginBottom: 6 }]}>{afstand}</Text>
+      ) : null}
 
       <Text style={GS.værdi}>
         {beregnAntal(opslag)} stk. pant • {visKroner(beregnBeloeb(opslag))}
