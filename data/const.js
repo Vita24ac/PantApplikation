@@ -58,7 +58,7 @@ export const beregnAfstand = (minPosition, opslag) => {
     return null; // vi mangler enten brugerens eller opslagets placering
   }
 
-  const jordensRadius = 6371; // km
+  const jordensRadius = 6371; // i km
   const tilRadianer = (grader) => (grader * Math.PI) / 180;
 
   const forskelBredde = tilRadianer(opslag.breddegrad - minPosition.breddegrad);

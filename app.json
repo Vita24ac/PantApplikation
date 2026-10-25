@@ -27,7 +27,8 @@
         {
           "locationWhenInUsePermission": "PantMakker bruger din placering til at vise pantposer i nærheden af dig."
         }
-      ]
+      ],
+      "expo-status-bar"
     ]
   }
 }
